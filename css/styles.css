@@ -59,13 +59,13 @@ body {
 }
 
 #restart {
-    background-color: #e78230;
+    background-color: #d09261;
     color: white;
     font-weight: bold;
-    height: 50px;
+    height: 70px;
     border-radius: 25px;
     border: 2px solid transparent;
-    width: 180px;
+    width: 220px;
     text-transform: uppercase;
     margin-top: 20px;
     cursor: pointer;
