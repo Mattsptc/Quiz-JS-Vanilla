@@ -59,13 +59,13 @@ body {
 }
 
 #restart {
-    background-color: #e78230;
+    background-color: #d78230;
     color: white;
     font-weight: bold;
-    height: 50px;
+    height: 70px;
     border-radius: 25px;
     border: 2px solid transparent;
-    width: 180px;
+    width: 220px;
     text-transform: uppercase;
     margin-top: 20px;
     cursor: pointer;
@@ -74,6 +74,110 @@ body {
 
 #restart:hover {
     background-color: transparent;
-    border-color: #e78230;
-    color: #e78230;
+    border-color: #d78230;
+    color: #d78230;
+}
+
+/* Quiz Container */
+
+#quizz-container {
+    width: 500px;
+    margin: 50px auto;
+    border: 1px solid #cddde8;
+    border-radius: 25px;
+}
+
+#question {
+    margin-top: 25px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 20px;
+
+}
+
+#question-number {
+    font-weight: bold;
+}
+
+#answers-box button {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    width: 300px;
+    height: 50px;
+    margin-left: 15px;
+    border-radius: 25px;
+    background-color: #cddde8;
+    border: 2px solid transparent;
+    padding-left: 5px;
+    text-align: left;
+    color: black;
+    cursor: pointer;
+    transition: .5s;
+
+}
+
+#answers-box button:hover {
+    background-color: #d78230;
+    color: white;
+
+}
+
+#answers-box .btn-letter {
+    font-size: 30px;
+    font-weight: bold;
+    background-color: #f2a45c;
+    border-radius: 50%;
+    line-height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    flex: 1 1 0;
+    max-width: 40px;
+}
+#answers-box .btn-letter:hover {
+    color: black;
+}
+
+.question-answer {
+    flex: 1 1 0;
+    margin-left: 10px;
+    font-size: 16px;
+
+}
+
+#quizz-container .wrong-answer,
+#quizz-container .wrong-answer .btn-letter {
+    background-color: #e62210;
+    color: white;
+
+}
+
+#quizz-container .correct-answer,
+#quizz-container .correct-answer .btn-letter {
+    color: white;
+    background-color: #40b576;
+}
+
+
+@media  (max-width: 450px){
+
+
+    * {
+        overflow: hidden;
+    }
+
+    #quizz-container {
+        border: none;
+        width: 100%;
+    }
+    #answers-box button {
+        width: 80%;
+    }
+
+
+#score-container {
+    width: 90%;
+}
+
 }
