@@ -6,7 +6,11 @@ const quizzContainer = document.querySelector("#quizz-container");
 const scoreContainer = document.querySelector('#score-container');
 const letters = ['a', 'b', 'c', 'd'];
 let points = 0;
+<<<<<<< HEAD
 let actualQuestion = 0;
+=======
+let actualQUestion = 0;
+>>>>>>> 495e1d7e6d74d9665df3f3b1218cf09602ce63ae
 
 
 // Perguntas
@@ -104,6 +108,7 @@ function createQuestion(i) {
     questionText.textContent = questions[i].question;
     questionNumber.textContent = i + 1;
 
+<<<<<<< HEAD
     questions[i].answers.forEach(function(answer, i) {
         // cria o template do botao do quizz
 
@@ -136,6 +141,8 @@ function createQuestion(i) {
 
     actualQuestion++
 
+=======
+>>>>>>> 495e1d7e6d74d9665df3f3b1218cf09602ce63ae
 }
 // Inicialização do quizz
 init()
