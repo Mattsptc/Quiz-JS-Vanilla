@@ -1,20 +1,13 @@
-// declaracao de variaveis
+// DECLARAÇÃO DE VARIÁVEIS
+const question = document.querySelector('#question')
+const answersBox = document.querySelector('#answers-box')
+const quizzContainer = document.querySelector('#quizz-container')
+const scoreContainer = document.querySelector('#score-container')
+const letters = ["a", "b", "c", "d"]
+let points = 0
+let actualQuestion = 0
 
-const question = document.querySelector('#question');
-const answersBox = document.querySelector('#answers-box');
-const quizzContainer = document.querySelector("#quizz-container");
-const scoreContainer = document.querySelector('#score-container');
-const letters = ['a', 'b', 'c', 'd'];
-let points = 0;
-<<<<<<< HEAD
-let actualQuestion = 0;
-=======
-let actualQUestion = 0;
->>>>>>> 495e1d7e6d74d9665df3f3b1218cf09602ce63ae
-
-
-// Perguntas
-
+//PERGUNTAS
 const questions = [
     {
         "question": "PHP foi desenvolvido para qual fim?",
@@ -81,68 +74,152 @@ const questions = [
     },
 ]
 
-// Substituicao do Quizz para a primeira pergunta
-
+//SUBSTITUIÇÃO DO QUIZZ PARA A PRIMEIRA PERGUNTA
 function init() {
-    // criar primeira pergunta
-    console.log('iniciou')
-    createQuestion(0);
-
+    //CRIAR A PRIMEIRA PERGUNTA
+    console.log('Iniciou')
+    createQuestion(0)
 }
 
-// cria uma pergunta
-
+//CRIA UMA PERGUNTA
 function createQuestion(i) {
-    // Limpar a questao anterior
 
+    //LIMPAR A QUESTÃO ANTERIOR
     const oldButtons = answersBox.querySelectorAll('button')
-    oldButtons.forEach(function(btn) {
-        btn.remove();
-    });
 
-    // Alterar o texto da pergunta
+    oldButtons.forEach(function (btn) {
+        btn.remove()
+    })
 
-    const questionText = question.querySelector("#question-text")
-    const questionNumber = question.querySelector("#question-number")
+    //ALTERAR O TEXTO DA PERGUNTA
+    const questionText = question.querySelector('#question-text')
+    const questionNumber = question.querySelector('#question-number')
 
-    questionText.textContent = questions[i].question;
-    questionNumber.textContent = i + 1;
+    questionText.textContent = questions[i].question
+    questionNumber.textContent = i + 1
 
-<<<<<<< HEAD
-    questions[i].answers.forEach(function(answer, i) {
-        // cria o template do botao do quizz
+    //INSERE AS ALTERNATIVAS
+    questions[i].answers.forEach(function (answer, i) {
 
-        const answerTemplate = document.querySelector(".answer-template").cloneNode(true)
+        //CRIA O TEMPLATE DO BOTÃO DO QUIZZ
+        const answerTemplate = document.querySelector('.answer-template').cloneNode(true)
+
         const letterBtn = answerTemplate.querySelector('.btn-letter')
         const answerText = answerTemplate.querySelector('.question-answer')
 
-        letterBtn.textContent = letters[i];
+        letterBtn.textContent = letters[i]
         answerText.textContent = answer['answer']
 
+        answerTemplate.setAttribute("correct-answer", answer['correct'])
 
-        answerTemplate.setAttribute('correct-answer', answer['correct']);
+        //REMOVER HIDE E TEMPLATE CLASS
+        answerTemplate.classList.remove("hide")
+        answerTemplate.classList.remove("answer-template")
 
-        // Remover hide e template class
+        //INSERIR AS ALTERNATIVAS NA TELA
+        answersBox.appendChild(answerTemplate)
 
-        answerTemplate.classList.remove('hide');
-        answerTemplate.classList.remove('answer-template')
-
-        // Inserir Alternativa na tela
-
-        answersBox.appendChild(answerTemplate);
-        // Inserir evento de click no botao
-        
-        answerTemplate.addEventListener('click', () => {
-            console.log(this)
+        //INSERIR UM EVENTO DE CLICK NO BOTÃO
+        answerTemplate.addEventListener('click', function () {
+            checkAnswer(this)
         })
-    })  
+    })
 
-    // incrementar o numero da questao
-
+    //INCREMENTAR O NÚMERO DA QUESTÃO
     actualQuestion++
-
-=======
->>>>>>> 495e1d7e6d74d9665df3f3b1218cf09602ce63ae
 }
-// Inicialização do quizz
+
+//VERIFICANDO RESPOSTA DO USUÁRIO
+function checkAnswer(btn) {
+
+    //SELECIONA TODOS OS BOTÕES
+    const buttons = answersBox.querySelectorAll('button')
+
+    //VERIFICA SE A RESPOSTA ESTÁ CORRETA E ADICIONA CLASSES NOS BOTÕES
+    buttons.forEach(function (button) {
+
+        if (button.getAttribute("correct-answer") === "true") {
+
+            button.classList.add("correct-answer")
+
+            //CHECA SE O USUÁRIO ACERTOU A PERGUNTA
+            if (btn === button) {
+                //INCREMENTO DOS PONTOS
+                points++
+            }
+
+        } else {
+
+            button.classList.add("wrong-answer")
+
+        }
+
+    })
+
+    //EXIBIR PRÓXIMA PERGUNTA
+    nextQuestion()
+
+}
+
+//EXIBE A PRÓXIMA PERGUNTA NO QUIZZ
+function nextQuestion() {
+
+    //TIMER PARA O USUÁRIO VER AS RESPOSTAS
+    setTimeout(function () {
+
+        //VERIFICA SE AINDA HÁ PERGUNTAS (SE CHEGOU AO FIM DO JOGO)
+        if (actualQuestion >= questions.length) {
+            //APRESENTAR A MENSAGEM DE SUCESSO E FINALIZAR O QUIZZ
+            showSuccessMessage()
+            return
+        }
+
+        createQuestion(actualQuestion)
+
+    }, 1500)
+
+}
+
+//EXIBE A TELA FINAL
+function showSuccessMessage() {
+
+    hideOrSowQuizz()
+
+    //TROCAR DADOS DA TELA DE SUCESSO
+
+    //CALCULAR O SCORE
+    const score = ((points / questions.length) * 100).toFixed(2)
+
+    const displayScore = document.querySelector('#display-score span')
+    displayScore.textContent = score.toString()
+
+    //ALTERAR O NÚMERO DE PERGUNTAS CORRETAS
+    const correctAnswers = document.querySelector('#correct-answers')
+    correctAnswers.textContent = points
+
+    //ALTERAR O TOTAL DE PERGUNTAS
+    const totalQuestions = document.querySelector('#questions-qty')
+    totalQuestions.textContent = questions.length
+}
+
+//MOSTA OU ESCONDE O SCORE E AS PERGUNTAS
+function hideOrSowQuizz() {
+    quizzContainer.classList.toggle("hide")
+    scoreContainer.classList.toggle("hide")
+}
+
+//REINICIAR QUIZZ
+const restartBtn = document.querySelector('#restart')
+
+restartBtn.addEventListener('click', function () {
+
+    //ZERAR OS DADOS DO JOGO
+    actualQuestion = 0
+    points = 0
+    hideOrSowQuizz()
+    init()
+
+})
+
+//INICIALIZAÇÃO DO QUIZZ
 init()
